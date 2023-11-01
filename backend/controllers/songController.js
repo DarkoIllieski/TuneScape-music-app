@@ -12,8 +12,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
-
 //Upload a song
 export const uploadSong = async (req, res) => {
   try {
@@ -34,5 +32,16 @@ export const uploadSong = async (req, res) => {
   }
 };
 
-//Use multer middleware for file handling
-router.post("/upload", upload.single("songFile"), uploadSong);
+
+
+//Get all songs
+
+export const getAllSongs = async (req, res) => {
+  try {
+    const songs = await Song.find();
+    res.status(200).json(songs);
+  } catch {
+    res.status(500).send(error.message);
+  }
+};
+
