@@ -1,6 +1,10 @@
 import express from "express";
 import Song from "../models/song";
 import multer from "multer";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 //Setup storage using multer
 const storage = multer.diskStorage({
@@ -32,8 +36,6 @@ export const uploadSong = async (req, res) => {
   }
 };
 
-
-
 //Get all songs
 
 export const getAllSongs = async (req, res) => {
@@ -45,3 +47,19 @@ export const getAllSongs = async (req, res) => {
   }
 };
 
+const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
+
+export const searchTracks = async (req, res) => {
+  const query = req.query.track;
+
+  try {
+    const response = await axios.get(
+      `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${query}&api_key=${LASTFM_API_KEY}&format=json`
+    );
+    if (response.data && response.data.results) {
+      res.json(response.data.results);
+    } else {
+      res.status(400).json({ message: "No track found" });
+    }
+  } catch (error) {}
+};
