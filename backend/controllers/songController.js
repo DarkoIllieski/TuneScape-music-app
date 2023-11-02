@@ -61,5 +61,8 @@ export const searchTracks = async (req, res) => {
     } else {
       res.status(400).json({ message: "No track found" });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("error fetching tracks:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
