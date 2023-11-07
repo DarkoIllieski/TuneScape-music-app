@@ -1,8 +1,8 @@
 import express from "express";
-import Song from "../models/song";
 import multer from "multer";
 import axios from "axios";
 import dotenv from "dotenv";
+import Song from "../models/song.js";
 
 dotenv.config();
 
@@ -15,6 +15,10 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
+
+const upload = multer({ storage: storage });
+
+const router = express.Router();
 
 //Upload a song
 export const uploadSong = async (req, res) => {
@@ -66,3 +70,23 @@ export const searchTracks = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+import Song from "../models/song.js";
+
+export const deleteSong = async (req, res) => {
+  const { songId } = req.params;
+
+  try {
+    // Find the song by ID and delete it
+    const deletedSong = await Song.findByIdAndDelete(songId);
+
+    if (deletedSong) {
+      res.status(200).json({ message: "Song deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Song not found" });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
