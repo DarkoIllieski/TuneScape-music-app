@@ -1,13 +1,12 @@
-// Header.js
-
 import React from 'react';
 import { Link } from 'react-router-dom'; 
+import './header.css';
 
 const Header = () => {
   return (
     <header>
       <div className="logo">
-        <Link to="/">Your Music App</Link>
+        <Link to="/">TS</Link>
       </div>
       <nav>
         <ul>
