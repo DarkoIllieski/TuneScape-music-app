@@ -14,6 +14,7 @@ export const searchTracks = async (req, res) => {
     const response = await axios.get(
       `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${query}&api_key=${LASTFM_API_KEY}&format=json`
     );
+    console.log(response.data)
     if (response.data && response.data.results) {
       res.json(response.data.results);
     } else {
@@ -68,9 +69,6 @@ export const getAllSongs = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
-
-import Song from "../models/song.js";
 
 export const deleteSong = async (req, res) => {
   const { songId } = req.params;

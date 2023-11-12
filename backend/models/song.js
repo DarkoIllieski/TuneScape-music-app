@@ -9,6 +9,6 @@ const songSchema = new mongoose.Schema({
   converIMgae: { type: String },
 });
 
-const Song = mongoose.model("Song", songShema);
+const Song = mongoose.model("Song", songSchema);
 
 export default Song;
