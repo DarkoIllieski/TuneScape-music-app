@@ -23,6 +23,9 @@ const Header = () => {
             <Link to="/upload">Upload</Link>
           </li>
           <li>
+							<NavLink to="/login">Login</NavLink>
+						</li>
+          <li>
             <Link to="/register">Register</Link> 
           </li>
         </ul>
