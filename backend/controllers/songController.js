@@ -5,27 +5,34 @@ import dotenv from "dotenv";
 import Song from "../models/song.js";
 
 dotenv.config();
-const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
+
+const DEEZER_API_URL = "https://api.deezer.com/search";
 
 export const searchTracks = async (req, res) => {
+  console.log("Request received on /api/songs/search");
   const query = req.query.track;
 
   try {
-    const response = await axios.get(
-      `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${query}&api_key=${LASTFM_API_KEY}&format=json`
-    );
-    console.log(response.data)
-    if (response.data && response.data.results) {
-      res.json(response.data.results);
+    const response = await axios.get(`${DEEZER_API_URL}/track?q=${query}`);
+    console.log("Deezer API Response:", response.data);
+
+    if (response.data && response.data.data) {
+      const tracks = response.data.data.map((track) => ({
+        id: track.id,
+        name: track.title,
+        artist: track.artist.name,
+      }));
+      console.log("Mapped Tracks:", tracks);
+      res.json(tracks);
     } else {
+      console.log("No tracks found");
       res.status(400).json({ message: "No track found" });
     }
   } catch (error) {
-    console.error("error fetching tracks:", error);
+    console.error("Error fetching tracks:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
