@@ -22,6 +22,9 @@ const Header = () => {
           <li>
             <Link to="/upload">Upload</Link>
           </li>
+          <li>
+            <Link to="/register">Register</Link> 
+          </li>
         </ul>
       </nav>
     </header>
