@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
+import axios from 'axios';
 
-const Register = () => {
-  const [formData, setFormData] = useState({
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await axios.post('http://localhost:5000/register', {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    console.log('Registration successful:', response.data);
+    // You might want to redirect to a login page or handle success in another way.
+
+
+  } catch (error) {
+    console.error('Error during registration:', error.response.data);
+    // Handle registration error, e.g., display an error message to the user.
+  }
+
+  setFormData({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    });
-  };
 
   return (
     <div>
@@ -66,7 +65,6 @@ const Register = () => {
           value={formData.confirmPassword}
           onChange={handleChange}
         />
-
         <button type="submit">Register</button>
       </form>
     </div>
