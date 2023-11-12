@@ -1,25 +1,22 @@
-// App.jsx
-
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/header.js/header';
-import Footer from './components/footer/footer';
-import HomePage from './components/homePage/homePage';
+import React from "react";
+import { Route, Routes, HashRouter } from "react-router-dom";
+import Header from "./components/header.js/header";
+import Footer from "./components/footer/footer";
+import HomePage from "./components/homePage/homePage";
 
 const App = () => {
   return (
-    <Router>
+    <HashRouter>
       <div className="app-container">
         <Header />
 
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          
-        </Switch>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
 
         <Footer />
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 
