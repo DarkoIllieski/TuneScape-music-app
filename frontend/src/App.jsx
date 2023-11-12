@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/Header';
-import HomePage from './pages/HomePage';
-
+import Header from './components/header.js/header';
+import Footer from './components/footer/footer';
+import HomePage from './components/homePage/homePage';
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
 
         <Switch>
           <Route path="/" exact component={HomePage} />
+          
         </Switch>
 
         <Footer />

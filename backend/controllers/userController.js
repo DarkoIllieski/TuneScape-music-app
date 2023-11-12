@@ -1,5 +1,5 @@
-import User from "../models/user.js";
 import bcrypt from "bcryptjs";
+import User from "../models/user.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -36,21 +36,16 @@ export const loginUser = async (req, res) => {
     const isMatch = await bcrypt.copmpare(password, user.password);
     if (!isMatch) return res.status(400).send("Invalid password");
 
-    //optionally generate a JWT token here if you are using JWT for authentication
-
     res.status(200).json({ message: "Logged in successfully" });
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
-import User from "../models/user.js";
-
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
-
     const deletedUser = await User.findByIdAndDelete(userId);
 
     if (deletedUser) {
@@ -63,18 +58,19 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-import User from "../models/user.js";
-
 export const updateUser = async (req, res) => {
   const { userId } = req.params;
   const updatedUserData = req.body;
 
   try {
-
-    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
+      new: true,
+    });
 
     if (updatedUser) {
-      res.status(200).json({ message: "User updated successfully", user: updatedUser });
+      res
+        .status(200)
+        .json({ message: "User updated successfully", user: updatedUser });
     } else {
       res.status(404).json({ message: "User not found" });
     }
@@ -82,5 +78,3 @@ export const updateUser = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
-

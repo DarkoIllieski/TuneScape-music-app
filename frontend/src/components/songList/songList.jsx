@@ -11,7 +11,6 @@ const SongList = ({ songs }) => {
             <div>
               <strong>{song.title}</strong> - {song.artist}
             </div>
-            {/* Add more details or controls for each song */}
             <button onClick={() => handlePlay(song)}>Play</button>
             <button onClick={() => handleDelete(song.id)}>Delete</button>
           </li>
