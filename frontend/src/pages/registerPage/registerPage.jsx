@@ -1,12 +1,13 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useState } from "react";
+import "./registerPage.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -21,28 +22,32 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/register', {
+      const response = await axios.post("http://localhost:5000/register", {
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
-      console.log('Registration successful:', response.data);
+      console.log("Registration successful:", response.data);
     } catch (error) {
-      console.error('Error during registration:', error.response.data);
+      console.error("Error during registration:", error.response.data);
     }
 
     setFormData({
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     });
   };
 
   return (
-    <div className='form-container'>
+    <div className="form-container">
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        action="http://localhost:5000/register"
+        method="post"
+      >
         <label htmlFor="username">Username:</label>
         <input
           type="text"

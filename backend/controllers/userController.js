@@ -3,10 +3,15 @@ import User from "../models/user.js";
 
 export const registerUser = async (req, res) => {
   try {
+    console.log("Received registration request:", req.body);
+
     const { username, email, password } = req.body;
 
     const userExist = await User.findOne({ email });
-    if (userExist) return res.status(400).send("User already exist");
+    if (userExist) {
+      console.log("User already exists:", userExist);
+      return res.status(400).send("User already exists");
+    }
 
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -18,11 +23,15 @@ export const registerUser = async (req, res) => {
     });
 
     await user.save();
+    console.log("User registered successfully:", user);
+
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
+    console.error("Error during registration:", error);
     res.status(500).send(error.message);
   }
 };
+
 
 export const loginUser = async (req, res) => {
   try {
