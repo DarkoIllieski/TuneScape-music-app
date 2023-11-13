@@ -5,7 +5,6 @@ export const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    //check if the user exist
     const userExist = await User.findOne({ email });
     if (userExist) return res.status(400).send("User already exist");
 
@@ -29,10 +28,8 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    //find the user bu email
     const user = await User.findOne({ email });
 
-    //compate the paswords
     const isMatch = await bcrypt.copmpare(password, user.password);
     if (!isMatch) return res.status(400).send("Invalid password");
 

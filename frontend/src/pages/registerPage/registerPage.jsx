@@ -1,33 +1,46 @@
 import axios from 'axios';
+import React, { useState } from 'react';
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    const response = await axios.post('http://localhost:5000/register', {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-    });
-
-    console.log('Registration successful:', response.data);
-    // You might want to redirect to a login page or handle success in another way.
-
-
-  } catch (error) {
-    console.error('Error during registration:', error.response.data);
-    // Handle registration error, e.g., display an error message to the user.
-  }
-
-  setFormData({
+const Register = () => {
+  const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:5000/register', {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log('Registration successful:', response.data);
+    } catch (error) {
+      console.error('Error during registration:', error.response.data);
+    }
+
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    });
+  };
+
   return (
-    <div>
+    <div className='form-container'>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
