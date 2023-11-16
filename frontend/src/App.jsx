@@ -7,6 +7,7 @@ import SongsPage from "./pages/songsPage/songsPage";
 import Register from "./pages/registerPage/registerPage";
 import LoginPage from "./pages/loginPage/loginPage";
 
+
 const App = () => {
   return (
     <HashRouter>

@@ -1,13 +1,11 @@
-import axios from "axios";
 import React, { useState } from "react";
-import "./registerPage.css";
+import axios from "axios";
 
-const Register = () => {
+const RegisterPage = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -27,27 +25,24 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
       });
+
       console.log("Registration successful:", response.data);
+    
     } catch (error) {
-      console.error("Error during registration:", error.response.data);
+      console.error("Error during registration:", error.response.data.message);
     }
 
     setFormData({
       username: "",
       email: "",
       password: "",
-      confirmPassword: "",
     });
   };
 
   return (
     <div className="form-container">
       <h2>Register</h2>
-      <form className="form"
-        onSubmit={handleSubmit}
-        action="http://localhost:5000/register"
-        method="post"
-      >
+      <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -73,20 +68,13 @@ const Register = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
+          autoComplete="current-password"
         />
 
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
         <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default RegisterPage;

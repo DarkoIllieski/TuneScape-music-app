@@ -1,13 +1,9 @@
-import React from 'react'
-import { useState } from 'react'
-import './loginPage.css'    
-import axios from 'axios';    
-
+import React, { useState } from "react";
 import axios from "axios";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -24,25 +20,47 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post("http://localhost:5000/login", {
-        username: formData.username,
+        email: formData.email,
         password: formData.password,
       });
-      console.log("Login successful:", response.data);
 
+      console.log("Login successful:", response.data);
     } catch (error) {
-      console.error("Error during login:", error.response.data);
+      console.error("Error during login:", error.response.data.message);
     }
 
     setFormData({
-      username: "",
+      email: "",
       password: "",
     });
   };
-    return (
-      <div>
-    
-      </div>
-    );
-  };
-  
-  export default loginPage;
+
+  return (
+    <div className="form-container">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
