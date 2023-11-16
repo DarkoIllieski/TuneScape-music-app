@@ -1,18 +1,48 @@
 import React from 'react'
 import { useState } from 'react'
-import './loginPage.css'        
+import './loginPage.css'    
+import axios from 'axios';    
 
-const loginPage = () => {
-const [username, setUsername] = useState('');
-const [password, setPassword] = useState(''); 
+import axios from "axios";
 
-const handleSubmit =  (e) => {
-  e.preventDefault();
-}
+const LoginPage = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
 
-  return (
-    <div></div>
-  )
-}
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-export default loginPage
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        username: formData.username,
+        password: formData.password,
+      });
+      console.log("Login successful:", response.data);
+
+    } catch (error) {
+      console.error("Error during login:", error.response.data);
+    }
+
+    setFormData({
+      username: "",
+      password: "",
+    });
+  };
+    return (
+      <div>
+    
+      </div>
+    );
+  };
+  
+  export default loginPage;
