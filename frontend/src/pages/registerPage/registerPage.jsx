@@ -43,7 +43,7 @@ const Register = () => {
   return (
     <div className="form-container">
       <h2>Register</h2>
-      <form
+      <form className="form"
         onSubmit={handleSubmit}
         action="http://localhost:5000/register"
         method="post"
