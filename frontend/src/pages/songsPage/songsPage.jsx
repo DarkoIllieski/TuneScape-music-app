@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SongList from '../../components/songList/songList';
+import './SongsPage.css';
 
 const SongsPage = () => {
   const [songs, setSongs] = useState([]);
@@ -17,7 +18,7 @@ const SongsPage = () => {
         console.error('Error fetching songs:', error);
       }
     };
-    
+
     fetchSongs();
   }, []);
 
@@ -33,7 +34,7 @@ const SongsPage = () => {
 
   return (
     <div>
-      {/* <h1>Songs Page</h1> */}
+      <h1>Songs Page</h1>
       <div>
         <input
           type="text"

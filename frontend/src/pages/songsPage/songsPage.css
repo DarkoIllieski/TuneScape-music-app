@@ -1,0 +1,62 @@
+.songs-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .songs-page h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .songs-page input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .songs-page button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+
+  .songs-page .last-fm-tracks {
+    margin-top: 20px;
+  }
+  
+  .songs-page .last-fm-tracks h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .songs-page .last-fm-tracks ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .songs-page .last-fm-tracks li {
+    margin-bottom: 10px;
+  }
+  
+
+  .songs-page .song-list {
+    margin-top: 20px;
+  }
+  
+  .songs-page .song-list h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .songs-page .song-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .songs-page .song-list li {
+    margin-bottom: 15px;
+  }
+  
+
+  
