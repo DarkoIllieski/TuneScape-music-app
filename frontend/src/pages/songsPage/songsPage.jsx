@@ -17,7 +17,7 @@ const SongsPage = () => {
         console.error('Error fetching songs:', error);
       }
     };
-
+    
     fetchSongs();
   }, []);
 
@@ -33,7 +33,7 @@ const SongsPage = () => {
 
   return (
     <div>
-      <h1>Songs Page</h1>
+      {/* <h1>Songs Page</h1> */}
       <div>
         <input
           type="text"
