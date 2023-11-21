@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SongList from '../../components/songList/songList';
-import './SongsPage.css';
+import './songsPage.css';
 
 const SongsPage = () => {
   const [songs, setSongs] = useState([]);
@@ -33,7 +33,7 @@ const SongsPage = () => {
   };
 
   return (
-    <div>
+    <div className='songs-page'>
       <h1>Songs Page</h1>
       <div>
         <input
@@ -44,11 +44,10 @@ const SongsPage = () => {
         <button onClick={handleSearch}>Search Tracks</button>
       </div>
       {lastFmTracks.length > 0 && (
-        <div>
-          <h2>Last.fm Tracks</h2>
+        <div className='song-list'>
           <ul>
             {lastFmTracks.map((track) => (
-              <li key={track.id}>{track.name} by {track.artist}</li>
+              <li key={track.id}>{track.name} by {track.artist}  </li>
             ))}
           </ul>
         </div>

@@ -32,15 +32,21 @@ export const registerUser = async (req, res) => {
   }
 };
 
-
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
-    const isMatch = await bcrypt.copmpare(password, user.password);
-    if (!isMatch) return res.status(400).send("Invalid password");
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).send("Invalid password");
+    }
 
     res.status(200).json({ message: "Logged in successfully" });
   } catch (error) {
