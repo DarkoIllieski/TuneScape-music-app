@@ -59,6 +59,7 @@ const LoginPage = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          autoComplete="username"
         />
 
         <label htmlFor="password">Password:</label>
