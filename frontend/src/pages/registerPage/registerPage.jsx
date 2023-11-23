@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -27,6 +30,8 @@ const RegisterPage = () => {
       });
 
       console.log("Registration successful:", response.data);
+
+      navigate("/login");
     
     } catch (error) {
       console.error("Error during registration:", error.response.data.message);
