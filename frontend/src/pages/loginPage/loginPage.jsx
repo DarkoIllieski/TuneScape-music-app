@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
- import "./loginPage.css";
+import "./loginPage.css";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -20,14 +20,26 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/users/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("Login successful:", response.data);
     } catch (error) {
-      console.error("Error during login:", error.response.data.message);
+      console.error("Error during login:", error.response);
+
+      if (error.response && error.response.data) {
+        console.error("Error message from server:", error.response.data.message);
+      }
     }
 
     setFormData({
@@ -56,6 +68,7 @@ const LoginPage = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
+          autoComplete="current-password"
         />
 
         <button type="submit">Login</button>
