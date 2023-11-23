@@ -36,6 +36,8 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    console.log("Received login request with email:", email);
+
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -44,15 +46,16 @@ export const loginUser = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch) {
-      return res.status(400).send("Invalid password");
+    if (isMatch) {
+      return res.status(200).json({ message: "Logged in successfully" });
     }
-
-    res.status(200).json({ message: "Logged in successfully" });
+    
+    return res.status(400).send("Invalid password");
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
+
 
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;
