@@ -20,6 +20,20 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-container">
+      <h2>Profile</h2>
+
+      {favorites.length === 0 ? (
+        <p>No favorite songs yet.</p>
+      ) : (
+        <div>
+          <h3>Favorites Playlist</h3>
+          <ul>
+            {favorites.map((song) => (
+              <li key={song.id}>{song.title} - {song.artist}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
