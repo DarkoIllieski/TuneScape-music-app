@@ -13,7 +13,7 @@ export const registerUser = async (req, res) => {
       return res.status(400).send("User already exists");
     }
 
-    const salt = await bcrypt.genSalt(12);
+    const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
@@ -39,23 +39,30 @@ export const loginUser = async (req, res) => {
     console.log("Received login request with email:", email);
 
     const user = await User.findOne({ email });
-
+    console.log("User found:", user);
     if (!user) {
       return res.status(404).send("User not found");
     }
 
+    // const isMatch = await bcrypt.compare("123", user.password);
+    const storedHash = "$2a$10$b1738E6LbLzv5dWgUfn8i.Xc91o.joeH62aOzHxSDEHryaxPBguWm";
+    const providedPassword = "123";
     const isMatch = await bcrypt.compare(password, user.password);
-
+    // const isMatch = password === user.password;
+    console.log("isMatch:", isMatch);
+    console.log("Stored Hashed Password:", user ? user.password : null);
+    console.log("Provided Password:", password);
+    console.log("Manually Compare:", storedHash === bcrypt.hashSync(providedPassword, 10));
     if (isMatch) {
       return res.status(200).json({ message: "Logged in successfully" });
+    } else {
+      return res.status(400).send("Invalid password");
     }
-    
-    return res.status(400).send("Invalid password");
   } catch (error) {
-    res.status(500).send(error.message);
+    console.error("Error during login:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
-
 
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;
